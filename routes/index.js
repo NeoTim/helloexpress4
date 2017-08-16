@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login',function(req,res,next){
-  console.log('login req body ',req.body);
   // cert must same as expressJwt secret
   var secret = 'nyancat 4 ever';
   var token = jwt.sign({username: req.body.username, password: req.body.password},secret,{expiresIn:  60 * 60});//expire 1 hour
@@ -17,6 +16,6 @@ router.post('/login',function(req,res,next){
 
 router.post('/token',function(req,res,next){
   return res.status(200).json({headers: req.headers});
-})
+});
 
 module.exports = router;
