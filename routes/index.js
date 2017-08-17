@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  return res.status(200).json('ok');
 });
 
 router.post('/login',function(req,res,next){
@@ -15,7 +15,8 @@ router.post('/login',function(req,res,next){
 });
 
 router.post('/token',function(req,res,next){
-  return res.status(200).json({headers: req.headers});
+  console.log('token accept');
+  return res.status(200).json('ok');
 });
 
 module.exports = router;

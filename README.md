@@ -73,9 +73,12 @@ app.use(expressJwt({
   }
 }).unless({path:['/login']}));
 
+// get /
+router.get('/',function(req,res,next){
+    return res.status(200).json('ok');
+});
 
-//login
-
+// post /login
 router.post('/login',function(req,res,next){
   // must same as expressJwt secret
   var secret = 'nyancat 4 ever';
@@ -83,9 +86,13 @@ router.post('/login',function(req,res,next){
   return res.status(200).json(token);
 });
 
+//post /token 
+router.post('/token',function(req,res,next){
+  return res.status(200).json('ok');
+});
+
 
 //test request
-
 var request = require("request");
 
 request.post({
@@ -95,18 +102,23 @@ request.post({
         password:   'pass123'
     }
 },function(err,resp,body){
-    //请求需要token验证的接口
-    //注意 客户端的token 都要以 'Bearer ' 开头
     var token = 'Bearer ' + JSON.parse(body);
+    console.log('token -->>',token);
+
+    //post method
     request.post({
         url:    'http://localhost:1337/token',
-        headers:{//重点在此
+        headers:{
             authorization:  token
         }
     },function(err1,resp1,body1){
-    	
+        console.log('token response ',err1,body1);
+    });
+
+    //get method
+    request.get('http://localhost:1337/',{token:token},function(err,resp,body){
+        console.log('index response ',err,body);
     });
 });
-
 
 ```

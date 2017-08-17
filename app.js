@@ -34,12 +34,13 @@ app.use(expressJwt({
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         token = req.headers.authorization.split(' ')[1];
     } else if (req.query && req.query.token) {//支持get
+        console.log(req.query,'query');
         token = req.query.token.split(' ')[1];
     }
-    console.log("getToken--",token);
+    console.log("route %s getToken--",req.originalUrl,token);
     return token;
   }
-}).unless({path:['/login','/getActRaning']}));
+}).unless({path:['/login']}));
 
 app.use('/', index);
 app.use('/users', users);
