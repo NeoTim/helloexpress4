@@ -55,9 +55,12 @@ A finished token looks like
 ### express-jwt & jsonwebtoken
 
 ```
+var app = express();
 
+...
+
+//set middleware
 var secret = 'nyancat 4 ever';
-
 app.use(expressJwt({
   secret: secret,
   credentialsRequired: false,
@@ -72,6 +75,11 @@ app.use(expressJwt({
     return token;
   }
 }).unless({path:['/login']}));
+
+...
+
+//index.js
+var router = express.Router();
 
 // get /
 router.get('/',function(req,res,next){
@@ -91,8 +99,11 @@ router.post('/token',function(req,res,next){
   return res.status(200).json('ok');
 });
 
+```
 
-//test request
+#### Test
+
+```
 var request = require("request");
 
 request.post({
