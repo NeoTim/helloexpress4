@@ -109,7 +109,7 @@ var request = require("request");
 request.post({
     url:    'http://localhost:1337/login',
     form:{
-        username:   'xiaodong',
+        username:   'test',
         password:   'pass123'
     }
 },function(err,resp,body){
